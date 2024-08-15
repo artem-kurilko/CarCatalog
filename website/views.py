@@ -15,7 +15,6 @@ def index():
             exist = Car.query.filter_by(name=car_name).first()
             if exist is None:
                 car = Car(name=car_name, description=description)
-                print(car.__dict__)
                 db.session.add(car)
                 db.session.commit()
                 flash('Your car has been added.', category='success')
@@ -27,7 +26,4 @@ def index():
             flash('Please fill out all fields', category='error')
             return redirect(url_for('views.index'))
     cars = Car.query.all()
-    print("Cars:")
-    for car in cars:
-        print(car.__dict__)
     return render_template('index.html', cars=cars)
